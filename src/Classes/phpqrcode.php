@@ -959,8 +959,9 @@ namespace Utkarsh\QrCode\Classes;
             $image = self::image($frame, $pixelPerPoint, $outerFrame, $back_color, $fore_color);
 
             if ($filename === false) {
-                Header("Content-type: image/png");
                 ImagePng($image);
+                $rawImageBytes = ob_get_clean();
+                echo "<img src='data:image/png;base64," . base64_encode( $rawImageBytes ) . "' />";
             } else {
                 if($saveandprint===TRUE){
                     ImagePng($image, $filename);
@@ -980,8 +981,9 @@ namespace Utkarsh\QrCode\Classes;
             $image = self::image($frame, $pixelPerPoint, $outerFrame);
 
             if ($filename === false) {
-                Header("Content-type: image/jpeg");
                 ImageJpeg($image, null, $q);
+                $rawImageBytes = ob_get_clean();
+                echo "<img src='data:image/jpeg;base64," . base64_encode( $rawImageBytes ) . "' />";
             } else {
                 ImageJpeg($image, $filename, $q);
             }
