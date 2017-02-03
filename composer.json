@@ -1,6 +1,6 @@
 {
     "name": "utkarsh/laravel-qrcode",
-    "description": "A laravel package which adds the 2 step verification api.",
+    "description": "A laravel package which simplifies qrcode generation.",
     "type": "laravel-plugin",
     "license": "MIT",
     "authors": [
