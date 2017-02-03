@@ -961,7 +961,7 @@ namespace Utkarsh\QrCode\Classes;
             if ($filename === false) {
                 ImagePng($image);
                 $rawImageBytes = ob_get_clean();
-                echo "<img src='data:image/png;base64," . base64_encode( $rawImageBytes ) . "' />";
+                $ret = "data:image/png;base64," . base64_encode( $rawImageBytes );
             } else {
                 if($saveandprint===TRUE){
                     ImagePng($image, $filename);
@@ -973,6 +973,7 @@ namespace Utkarsh\QrCode\Classes;
             }
 
             ImageDestroy($image);
+            return $ret;
         }
 
         //----------------------------------------------------------------------
@@ -983,12 +984,13 @@ namespace Utkarsh\QrCode\Classes;
             if ($filename === false) {
                 ImageJpeg($image, null, $q);
                 $rawImageBytes = ob_get_clean();
-                echo "<img src='data:image/jpeg;base64," . base64_encode( $rawImageBytes ) . "' />";
+                $ret = "data:image/png;base64," . base64_encode( $rawImageBytes );
             } else {
                 ImageJpeg($image, $filename, $q);
             }
 
             ImageDestroy($image);
+            return $ret;
         }
 
         //----------------------------------------------------------------------
@@ -3346,7 +3348,8 @@ namespace Utkarsh\QrCode\Classes;
                 
                 $maxSize = (int)(QR_PNG_MAXIMUM_SIZE / (count($tab)+2*$this->margin));
                 
-                QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint, $this->back_color, $this->fore_color);
+                $encImage = QRimage::png($tab, $outfile, min(max(1, $this->size), $maxSize), $this->margin,$saveandprint, $this->back_color, $this->fore_color);
+                return $encImage;
             
             } catch (Exception $e) {
             
